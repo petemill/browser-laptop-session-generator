@@ -1,0 +1,14 @@
+# Logs
+logs
+*.log
+npm-debug.log.*
+cpu-profiles
+*.cpuprofile
+
+node_modules
+
+
+# Temp files
+.DS_Store
+.DS-Store
+
