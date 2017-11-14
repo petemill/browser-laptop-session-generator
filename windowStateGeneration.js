@@ -59,12 +59,20 @@ function getFrame(url, tabsUnloaded) {
   }
 }
 
-async function getWindowState (frameCount, siteCategory, tabsUnloaded = false) {
+async function getWindowState (frameCount, siteCategory, windowX = 0, windowY = 0, tabsUnloaded = false) {
   const pageCount = Math.ceil(frameCount / 50)
   try {
     const sites = await getPages(byCategory, siteCategory, pageCount)
     return {
-      frames: sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded))
+      frames: sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded)),
+      windowInfo: {
+        top: windowY,
+        left: windowX,
+        width: 800,
+        height: 600,
+        type: "normal",
+        state: "normal"
+      }
     }
   }
   catch (e) {

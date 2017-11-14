@@ -1,7 +1,7 @@
 var argv = require('minimist')(process.argv.slice(2), {
   boolean: ['unloadedtabs']
 });
-const stateGeneration = require('./stateGeneration')
+const stateGeneration = require('./windowStateGeneration')
 const fs = require('fs')
 
 writeFile = (path, data, options) => new Promise((resolve, reject) => fs.writeFile(path, data, options, (err) => {
@@ -35,7 +35,7 @@ async function generate() {
   // create windows and tabs
   const windowOps = [ ]
   for (let i = 0; i < windowCount; i++) {
-    windowOps.push(stateGeneration.getWindowState(tabsPerWindow, stateGeneration.siteCategories[i], tabsUnloaded))
+    windowOps.push(stateGeneration.getWindowState(tabsPerWindow, stateGeneration.siteCategories[i], i * 20, i * 100, tabsUnloaded))
   }
   const framesByWindow = await Promise.all(windowOps)
   state.perWindowState.push(...framesByWindow)
