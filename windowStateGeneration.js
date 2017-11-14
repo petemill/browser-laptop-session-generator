@@ -68,7 +68,7 @@ async function getWindowState (frameCount, siteCategory, windowX = 0, windowY = 
       windowInfo: {
         top: windowY,
         left: windowX,
-        width: 800,
+        width: 1124,
         height: 600,
         type: "normal",
         state: "normal"
