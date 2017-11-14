@@ -11,7 +11,7 @@ const siteCategories = [
   'Computers/CAD_and_CAM'
 ]
 
-function getFrame(url) {
+function getFrame(url, tabsUnloaded) {
   return {
     "showOnRight": false,
     "src": url,
@@ -52,19 +52,19 @@ function getFrame(url) {
     "location": url,
     "fingerprintingProtection": {},
     "title": "Brave Software - 34 Photos - Internet Company -",
-    "icon": "https://www.facebook.com/rsrc.php/yl/r/H3nktOa7ZMg.ico",
+  //  "icon": "https://www.facebook.com/rsrc.php/yl/r/H3nktOa7ZMg.ico",
     "isPrivate": false,
     "hrefPreview": "",
-    "unloaded": false,
+    "unloaded": tabsUnloaded,
   }
 }
 
-async function getWindowState (frameCount, siteCategory) {
+async function getWindowState (frameCount, siteCategory, tabsUnloaded = false) {
   const pageCount = Math.ceil(frameCount / 50)
   try {
     const sites = await getPages(byCategory, siteCategory, pageCount)
     return {
-      frames: sites.slice(0, frameCount).map(getFrame)
+      frames: sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded))
     }
   }
   catch (e) {
