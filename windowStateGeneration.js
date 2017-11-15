@@ -78,7 +78,8 @@ async function getWindowState (frameCount, siteCategory, windowX = 0, windowY = 
         height: 600,
         type: "normal",
         state: "normal"
-      }
+      },
+      closedFrames: [ ]
     }
   }
   catch (e) {
