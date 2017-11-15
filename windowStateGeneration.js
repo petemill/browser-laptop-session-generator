@@ -11,8 +11,12 @@ const siteCategories = [
   'Computers/CAD_and_CAM'
 ]
 
+let newFrameKey = 0
+
 function getFrame(url, tabsUnloaded) {
+  newFrameKey++
   return {
+    "key": newFrameKey,
     "showOnRight": false,
     "src": url,
     "lastAccessedTime": 1510599912564,
@@ -41,7 +45,7 @@ function getFrame(url, tabsUnloaded) {
       }
     },
     "zoomLevel": 0,
-    "index": 0,
+    "index": newFrameKey - 1,
     "partitionNumber": 0,
     "history": [
       "https://www.facebook.com/BraveSoftware/",
@@ -63,8 +67,10 @@ async function getWindowState (frameCount, siteCategory, windowX = 0, windowY = 
   const pageCount = Math.ceil(frameCount / 50)
   try {
     const sites = await getPages(byCategory, siteCategory, pageCount)
+    const frames = sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded))
     return {
-      frames: sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded)),
+      frames,
+      activeFrameKey: frames[0].key,
       windowInfo: {
         top: windowY,
         left: windowX,
