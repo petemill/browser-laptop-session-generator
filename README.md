@@ -21,3 +21,7 @@ Uses alexa top sites to generate URLs to open in the number of tabs and windows 
 `--unloadedtabs`
 
 Whether tabs should be created in the unloaded state. Defaults to **false**.
+
+`--blanktabs`
+
+All tabs will use the address 'about:blank'

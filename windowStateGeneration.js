@@ -66,7 +66,7 @@ function getFrame(url, tabsUnloaded) {
 async function getWindowState (frameCount, siteCategory, windowX = 0, windowY = 0, tabsUnloaded = false) {
   const pageCount = Math.ceil(frameCount / 50)
   try {
-    const sites = await getPages(byCategory, siteCategory, pageCount)
+    const sites = siteCategory ? await getPages(byCategory, siteCategory, pageCount) : new Array(frameCount).fill('about:blank')
     const frames = sites.slice(0, frameCount).map(frameUrl => getFrame(frameUrl, tabsUnloaded))
     return {
       frames,

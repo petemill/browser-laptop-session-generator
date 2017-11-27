@@ -15,6 +15,7 @@ writeFile = (path, data, options) => new Promise((resolve, reject) => fs.writeFi
 const windowCount = argv.windows || 1
 const tabsPerWindow = argv.tabs || 10
 const tabsUnloaded = argv.unloadedtabs
+const blankTabs = argv.blanktabs || false
 const writeFileLocation = argv.out
 
 //validate
@@ -35,7 +36,7 @@ async function generate() {
   // create windows and tabs
   const windowOps = [ ]
   for (let i = 0; i < windowCount; i++) {
-    windowOps.push(stateGeneration.getWindowState(tabsPerWindow, stateGeneration.siteCategories[i], i * 20, i * 100, tabsUnloaded))
+    windowOps.push(stateGeneration.getWindowState(tabsPerWindow, blankTabs ? null : stateGeneration.siteCategories[i], i * 20, i * 100, tabsUnloaded))
   }
   const framesByWindow = await Promise.all(windowOps)
   state.perWindowState.push(...framesByWindow)
